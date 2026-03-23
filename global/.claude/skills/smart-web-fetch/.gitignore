@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+._*
+
+# 临时文件
+*.tmp
+*.log
+
+# 输出文件（用户生成）
+output.md
+article.md
+*.html
