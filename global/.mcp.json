@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
+    },
+    "webmcp": {
+      "type": "http",
+      "url": "https://webmcp-backend-prod-v2.alexmnahas.workers.dev/mcp?key=76142934-302a-4d63-a5ba-d21e904de834"
+    }
+  }
+}

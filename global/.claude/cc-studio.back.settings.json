@@ -1,0 +1,17 @@
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk-sp-2f68074b6f9b40378989e6a3103289ed",
+    "ANTHROPIC_BASE_URL": "https://coding.dashscope.aliyuncs.com/apps/anthropic",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-5",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5",
+    "ANTHROPIC_MODEL": "glm-5",
+    "ANTHROPIC_REASONING_MODEL": "glm-5"
+  },
+  "includeCoAuthoredBy": false,
+  "model": "haiku",
+  "permissions": {
+    "allow": [],
+    "deny": []
+  }
+}

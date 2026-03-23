@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "description": "Claude 四层配置架构的集中备份清单",
+  "strategy": "每层备份策略：(1) .claude 目录按 claudeDirBackup 的 mode 执行，(2) 辅助资产仅备份 auxiliaryAssets 中显式声明的，(3) 其他所有内容默认不备份",
+  "layers": {
+    "global": {
+      "claudeDirBackup": {
+        "source": "C:\\Users\\admin\\.claude",
+        "target": "global\\.claude",
+        "mode": "exclude",
+        "exclude": [
+          "cache",
+          "image-cache",
+          "shell-snapshots",
+          "telemetry",
+          "session-env",
+          "stats-cache.json",
+          "statsig",
+          "debug",
+          "downloads",
+          "backups",
+          "file-history",
+          "history.jsonl",
+          "projects",
+          "todos"
+        ],
+        "notes": "备份全局 .claude 目录，排除缓存、临时文件和运行态数据"
+      },
+      "auxiliaryAssets": [
+        {
+          "source": "C:\\Users\\admin\\.mcp.json",
+          "target": "global\\.mcp.json",
+          "notes": "用户目录根部的 MCP 配置文件"
+        },
+        {
+          "source": "C:\\Users\\admin\\.claude.json",
+          "target": "global\\.claude.json",
+          "notes": "用户目录根部的 Claude 客户端状态/配置文件"
+        }
+      ]
+    },
+    "domains": {
+      "software-engineering": {
+        "claudeDirBackup": {
+          "source": "D:\\2Work\\Claude\\.claude",
+          "target": "domains\\software-engineering\\.claude",
+          "mode": "exclude",
+          "exclude": [
+            "skills",
+            "cache",
+            "context",
+            "metrics"
+          ],
+          "notes": "备份领域层 .claude 目录，排除 skills（软链接）、缓存和运行态数据"
+        },
+        "auxiliaryAssets": [
+          {
+            "source": "D:\\2Work\\Claude\\CLAUDE.md",
+            "target": "domains\\software-engineering\\CLAUDE.md",
+            "notes": "工作区说明文档"
+          },
+          {
+            "source": "D:\\2Work\\Claude\\auto-js",
+            "target": "domains\\software-engineering\\auto-js",
+            "notes": "自动化脚本目录"
+          },
+          {
+            "source": "D:\\2Work\\Claude\\configs",
+            "target": "domains\\software-engineering\\configs",
+            "notes": "配置模板目录"
+          },
+          {
+            "source": "D:\\2Work\\Claude\\edge-cli.bat",
+            "target": "domains\\software-engineering\\edge-cli.bat",
+            "notes": "Edge CLI 启动脚本"
+          },
+          {
+            "source": "D:\\2Work\\Claude\\package.json",
+            "target": "domains\\software-engineering\\package.json",
+            "notes": "Node.js 项目依赖配置"
+          }
+        ]
+      }
+    }
+  }
+}

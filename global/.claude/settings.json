@@ -1,0 +1,19 @@
+{
+  "alwaysThinkingEnabled": true,
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk-YEi7NsEgy0yJ7F2ivQCcZMDy4WVfsPwiXPVNuc5Is8iHhMhB",
+    "ANTHROPIC_BASE_URL": "http://47.253.7.24:3000",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
+    "MAX_THINKING_TOKENS": "15000"
+  },
+  "includeCoAuthoredBy": false,
+  "model": "sonnet",
+  "permissions": {
+    "allow": [],
+    "deny": []
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "verbose": false
+}

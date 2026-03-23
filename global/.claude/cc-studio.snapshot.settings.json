@@ -1,0 +1,7 @@
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk-PoXtT7sw3mHH1GCFRqwQvIElsGzqcQ9eyn4Va1pPC8Lztq3k",
+    "ANTHROPIC_BASE_URL": "https://aiapi.aixia.tech"
+  },
+  "includeCoAuthoredBy": false
+}
