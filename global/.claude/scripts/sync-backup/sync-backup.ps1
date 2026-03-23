@@ -136,6 +136,25 @@ if ($config.layers.applications) {
     }
 }
 
+if ($config.layers.projects) {
+    Write-Host "`n[Project Layer] Starting backup"
+    foreach ($projectName in $config.layers.projects.PSObject.Properties.Name) {
+        Write-Host "  Project: $projectName"
+        $pc = $config.layers.projects.$projectName.claudeDirBackup
+        Write-Host "    Source: $($pc.source)"
+        $count = Backup-WithExclude -Source $pc.source -Target (Join-Path $BackupRoot $pc.target) -Exclude $pc.exclude
+        $totalFiles += $count
+        Write-Host "    [Done] $count files"
+
+        if ($config.layers.projects.$projectName.auxiliaryAssets) {
+            Write-Host "    Backing up auxiliary assets..."
+            $count = Backup-Assets -Assets $config.layers.projects.$projectName.auxiliaryAssets -BaseTarget $BackupRoot
+            $totalFiles += $count
+            Write-Host "    [Done] $count files"
+        }
+    }
+}
+
 Write-Host "`n========================================"
 Write-Host "[Complete] Backup finished"
 Write-Host "========================================"

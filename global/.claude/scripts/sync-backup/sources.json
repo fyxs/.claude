@@ -126,6 +126,34 @@
           }
         ]
       }
+    },
+    "projects": {
+      "isms-web": {
+        "claudeDirBackup": {
+          "source": "D:\\2Work\\Claude\\ts-projects\\isms-web\\.claude",
+          "target": "projects\\isms-web\\.claude",
+          "mode": "exclude",
+          "exclude": [
+            ".env",
+            "cache",
+            "context",
+            "metrics"
+          ],
+          "notes": "isms-web 项目层配置"
+        },
+        "auxiliaryAssets": [
+          {
+            "source": "D:\\2Work\\Claude\\ts-projects\\isms-web\\.mcp.json",
+            "target": "projects\\isms-web\\.mcp.json",
+            "notes": "项目特定的 MCP 配置"
+          },
+          {
+            "source": "D:\\2Work\\Claude\\ts-projects\\isms-web\\README.md",
+            "target": "projects\\isms-web\\README.md",
+            "notes": "项目文档"
+          }
+        ]
+      }
     }
   }
 }
