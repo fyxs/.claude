@@ -57,7 +57,14 @@
       "Bash(powershell.exe -ExecutionPolicy Bypass -File \".\\\\sync-backup.ps1\" -BackupRoot \"D:\\\\10Backups\\\\Claude-Config\" -DetectChanges)",
       "Bash(powershell.exe -ExecutionPolicy Bypass -File \".\\\\test.ps1\" -Message \"环境测试\")",
       "Bash(powershell.exe -ExecutionPolicy Bypass -File \".\\\\sync-backup-simple.ps1\" -BackupRoot \"D:\\\\10Backups\\\\Claude-Config\")",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File \".\\\\sync-backup-v2.ps1\" -BackupRoot \"D:\\\\10Backups\\\\Claude-Config\")"
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \".\\\\sync-backup-v2.ps1\" -BackupRoot \"D:\\\\10Backups\\\\Claude-Config\")",
+      "Bash(tree:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

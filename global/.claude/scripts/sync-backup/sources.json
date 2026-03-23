@@ -22,7 +22,8 @@
           "file-history",
           "history.jsonl",
           "projects",
-          "todos"
+          "todos",
+          ".credentials.json"
         ],
         "notes": "备份全局 .claude 目录，排除缓存、临时文件和运行态数据"
       },
@@ -78,6 +79,50 @@
             "source": "D:\\2Work\\Claude\\package.json",
             "target": "domains\\software-engineering\\package.json",
             "notes": "Node.js 项目依赖配置"
+          }
+        ]
+      }
+    },
+    "applications": {
+      "ts-projects": {
+        "claudeDirBackup": {
+          "source": "D:\\2Work\\Claude\\ts-projects\\.claude",
+          "target": "applications\\ts-projects\\.claude",
+          "mode": "exclude",
+          "exclude": [
+ 	    "skills",
+            "cache",
+            "context",
+            "metrics"
+          ],
+          "notes": "TypeScript 项目应用层配置"
+        },
+        "auxiliaryAssets": [
+          {
+            "source": "D:\\2Work\\Claude\\ts-projects\\CLAUDE.md",
+            "target": "applications\\ts-projects\\CLAUDE.md",
+            "notes": "应用层说明文档"
+          }
+        ]
+      },
+      "personal-projects": {
+        "claudeDirBackup": {
+          "source": "D:\\2Work\\Claude\\personal-projects\\.claude",
+          "target": "applications\\personal-projects\\.claude",
+          "mode": "exclude",
+          "exclude": [
+            "skills",
+            "cache",
+            "context",
+            "metrics"
+          ],
+          "notes": "个人项目应用层配置"
+        },
+        "auxiliaryAssets": [
+          {
+            "source": "D:\\2Work\\Claude\\personal-projects\\CLAUDE.md",
+            "target": "applications\\personal-projects\\CLAUDE.md",
+            "notes": "应用层说明文档"
           }
         ]
       }

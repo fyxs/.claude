@@ -52,7 +52,7 @@
 ### 1. 基础备份
 
 ```powershell
-cd C:\Users\admin\.claude\plans
+cd C:\Users\admin\.claude\scripts\sync-backup
 .\sync-backup.ps1 -BackupRoot "D:\10Backups\Claude-Config"
 ```
 
@@ -80,35 +80,35 @@ cd C:\Users\admin\.claude\plans
 
 ```
 D:\10Backups\Claude-Config/
-├── global\.claude/                      # 全局层 .claude 目录
-│   ├── rules/                           # 规则文件
-│   ├── memory/                          # 记忆文件
-│   ├── plans/                           # 计划文档
-│   ├── templates/                       # 模板文件
-│   ├── skills/                          # 技能文件
-│   ├── settings.json                    # 全局设置
-│   ├── settings.local.json              # 本地设置
-│   ├── config.json                      # 配置文件
-│   ├── project-config.json              # 项目配置
-│   ├── mcp.json                         # MCP 配置
-│   └── architecture.md                  # 架构说明
+├── global/
+│   ├── .claude/                         # 全局层 .claude 目录
+│   │   ├── rules/                       # 规则文件
+│   │   ├── memory/                      # 记忆文件
+│   │   ├── plans/                       # 计划文档
+│   │   ├── templates/                   # 模板文件
+│   │   ├── skills/                      # 技能文件
+│   │   ├── settings.json                # 全局设置
+│   │   ├── settings.local.json          # 本地设置
+│   │   ├── config.json                  # 配置文件
+│   │   ├── project-config.json          # 项目配置
+│   │   ├── mcp.json                     # MCP 配置
+│   │   └── architecture.md              # 架构说明
+│   ├── .mcp.json                        # 全局层辅助资产
+│   └── .claude.json                     # Claude 客户端状态
 │
-├── global-aux\.mcp.json                 # 全局层辅助资产
-├── global-aux\.claude.json              # Claude 客户端状态
-│
-├── domains\software-engineering\.claude/  # 领域层 .claude 目录
-│   ├── rules/                           # 领域规则
-│   ├── memory/                          # 领域记忆
-│   ├── templates/                       # 领域模板
-│   ├── settings.json                    # 领域设置
-│   └── settings.local.json              # 领域本地设置
-│
-└── domains\software-engineering-aux\    # 领域层辅助资产
-    ├── CLAUDE.md                        # 工作区说明
-    ├── auto-js/                         # 自动化脚本
-    ├── configs/                         # 配置模板
-    ├── edge-cli.bat                     # Edge CLI 启动脚本
-    └── package.json                     # Node.js 依赖配置
+└── domains/
+    └── software-engineering/
+        ├── .claude/                     # 领域层 .claude 目录
+        │   ├── rules/                   # 领域规则
+        │   ├── memory/                  # 领域记忆
+        │   ├── templates/               # 领域模板
+        │   ├── settings.json            # 领域设置
+        │   └── settings.local.json      # 领域本地设置
+        ├── CLAUDE.md                    # 工作区说明（辅助资产）
+        ├── auto-js/                     # 自动化脚本（辅助资产）
+        ├── configs/                     # 配置模板（辅助资产）
+        ├── edge-cli.bat                 # Edge CLI 启动脚本（辅助资产）
+        └── package.json                 # Node.js 依赖配置（辅助资产）
 ```
 
 ---
@@ -117,15 +117,17 @@ D:\10Backups\Claude-Config/
 
 ### 添加新的辅助资产
 
-编辑 `C:\Users\admin\.claude\plans\sources.json`，在对应层的 `auxiliaryAssets` 数组中添加：
+编辑 `C:\Users\admin\.claude\scripts\sync-backup\sources.json`，在对应层的 `auxiliaryAssets` 数组中添加：
 
 ```json
 {
   "source": "D:\\2Work\\Claude\\new-script.ps1",
-  "target": "domains\\software-engineering-aux\\new-script.ps1",
+  "target": "domains\\software-engineering\\new-script.ps1",
   "notes": "新脚本说明"
 }
 ```
+
+**注意**：辅助资产直接放在层目录下（如 `domains\software-engineering\`），不使用单独的 -aux 子目录。
 
 ### 添加新的排除项
 
@@ -135,9 +137,12 @@ D:\10Backups\Claude-Config/
 "exclude": [
   "cache",
   "new-temp-dir",
-  "logs"
+  "logs",
+  ".credentials.json"
 ]
 ```
+
+**安全提示**：`.credentials.json` 已被排除，防止敏感凭据被备份到 Git 仓库。
 
 ### 添加新的领域层
 
@@ -155,12 +160,14 @@ D:\10Backups\Claude-Config/
   "auxiliaryAssets": [
     {
       "source": "E:\\DataScience\\README.md",
-      "target": "domains\\data-science-aux\\README.md",
+      "target": "domains\\data-science\\README.md",
       "notes": "领域说明文档"
     }
   ]
 }
 ```
+
+**注意**：辅助资产直接放在 `domains\data-science\` 目录下，与 `.claude` 目录并列。
 
 ---
 
@@ -227,8 +234,8 @@ git push origin main
    - 时间：凌晨 2:00（或其他空闲时间）
 4. 配置操作：
    - 程序：`powershell.exe`
-   - 参数：`-File "C:\Users\admin\.claude\plans\sync-backup.ps1" -BackupRoot "D:\10Backups\Claude-Config" -DetectChanges -IncrementalBackup`
-   - 起始位置：`C:\Users\admin\.claude\plans`
+   - 参数：`-File "C:\Users\admin\.claude\scripts\sync-backup\sync-backup.ps1" -BackupRoot "D:\10Backups\Claude-Config" -DetectChanges -IncrementalBackup`
+   - 起始位置：`C:\Users\admin\.claude\scripts\sync-backup`
 
 ### 方案 2：创建快捷方式
 
@@ -237,7 +244,7 @@ git push origin main
 1. 右键桌面 → 新建 → 快捷方式
 2. 位置：
    ```
-   powershell.exe -NoExit -Command "cd 'C:\Users\admin\.claude\plans'; .\sync-backup.ps1 -BackupRoot 'D:\10Backups\Claude-Config' -DetectChanges"
+   powershell.exe -NoExit -Command "cd 'C:\Users\admin\.claude\scripts\sync-backup'; .\sync-backup.ps1 -BackupRoot 'D:\10Backups\Claude-Config' -DetectChanges"
    ```
 3. 名称：`Claude 配置备份`
 
@@ -247,7 +254,7 @@ git push origin main
 
 ```batch
 @echo off
-cd /d C:\Users\admin\.claude\plans
+cd /d C:\Users\admin\.claude\scripts\sync-backup
 powershell.exe -ExecutionPolicy Bypass -File ".\sync-backup.ps1" -BackupRoot "D:\10Backups\Claude-Config" -DetectChanges -IncrementalBackup
 pause
 ```
@@ -267,8 +274,8 @@ Move-Item "C:\Users\admin\.claude" "C:\Users\admin\.claude.backup-$timestamp"
 Copy-Item "D:\10Backups\Claude-Config\global\.claude" "C:\Users\admin\.claude" -Recurse -Force
 
 # 3. 恢复辅助资产
-Copy-Item "D:\10Backups\Claude-Config\global-aux\.mcp.json" "C:\Users\admin\.mcp.json" -Force
-Copy-Item "D:\10Backups\Claude-Config\global-aux\.claude.json" "C:\Users\admin\.claude.json" -Force
+Copy-Item "D:\10Backups\Claude-Config\global\.mcp.json" "C:\Users\admin\.mcp.json" -Force
+Copy-Item "D:\10Backups\Claude-Config\global\.claude.json" "C:\Users\admin\.claude.json" -Force
 
 Write-Host "✅ 全局层恢复完成" -ForegroundColor Green
 ```
@@ -284,11 +291,11 @@ Move-Item "D:\2Work\Claude\.claude" "D:\2Work\Claude\.claude.backup-$timestamp"
 Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering\.claude" "D:\2Work\Claude\.claude" -Recurse -Force
 
 # 3. 恢复辅助资产
-Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering-aux\CLAUDE.md" "D:\2Work\Claude\CLAUDE.md" -Force
-Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering-aux\auto-js" "D:\2Work\Claude\auto-js" -Recurse -Force
-Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering-aux\configs" "D:\2Work\Claude\configs" -Recurse -Force
-Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering-aux\edge-cli.bat" "D:\2Work\Claude\edge-cli.bat" -Force
-Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering-aux\package.json" "D:\2Work\Claude\package.json" -Force
+Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering\CLAUDE.md" "D:\2Work\Claude\CLAUDE.md" -Force
+Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering\auto-js" "D:\2Work\Claude\auto-js" -Recurse -Force
+Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering\configs" "D:\2Work\Claude\configs" -Recurse -Force
+Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering\edge-cli.bat" "D:\2Work\Claude\edge-cli.bat" -Force
+Copy-Item "D:\10Backups\Claude-Config\domains\software-engineering\package.json" "D:\2Work\Claude\package.json" -Force
 
 Write-Host "✅ 领域层恢复完成" -ForegroundColor Green
 ```
@@ -456,10 +463,11 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 ## 参考文档
 
-- **配置清单**：`C:\Users\admin\.claude\plans\sources.json`
+- **配置清单**：`C:\Users\admin\.claude\scripts\sync-backup\sources.json`
+- **使用说明**：`C:\Users\admin\.claude\scripts\sync-backup\backup-usage-guide.md`
+- **同步脚本**：`C:\Users\admin\.claude\scripts\sync-backup\sync-backup.ps1`
 - **备份计划**：`C:\Users\admin\.claude\plans\centralized-claude-backup-plan.md`
 - **内容清单**：`C:\Users\admin\.claude\plans\claude-backup-inventory.md`
-- **同步脚本**：`C:\Users\admin\.claude\plans\sync-backup.ps1`
 
 ---
 
