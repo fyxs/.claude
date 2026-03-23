@@ -9,6 +9,7 @@
         "target": "global\\.claude",
         "mode": "exclude",
         "exclude": [
+          ".git",
           "cache",
           "image-cache",
           "shell-snapshots",
@@ -47,6 +48,7 @@
           "target": "domains\\software-engineering\\.claude",
           "mode": "exclude",
           "exclude": [
+            ".git",
             "skills",
             "cache",
             "context",
@@ -90,6 +92,7 @@
           "target": "applications\\ts-projects\\.claude",
           "mode": "exclude",
           "exclude": [
+            ".git",
  	    "skills",
             "cache",
             "context",
@@ -111,6 +114,7 @@
           "target": "applications\\personal-projects\\.claude",
           "mode": "exclude",
           "exclude": [
+            ".git",
             "skills",
             "cache",
             "context",
@@ -134,6 +138,8 @@
           "target": "projects\\isms-web\\.claude",
           "mode": "exclude",
           "exclude": [
+            ".git",
+	    "skills",
             ".env",
             "cache",
             "context",
