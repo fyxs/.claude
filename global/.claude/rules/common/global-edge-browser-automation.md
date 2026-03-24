@@ -547,27 +547,4 @@ D:\2Work\Claude/
 ├── auto-js/browser/
 │   ├── edge-cli.js         # 主脚本
 │   └── start-edge-debug.bat
-└── edge-cli.bat            # Windows 启动脚本
-```
-
-### 快速参考
-
-**基础操作：**
-```bash
-edge-cli check              # 检查状态
-edge-cli start              # 启动 Edge
-edge-cli open <url>         # 打开页面
-edge-cli tabs               # 列出标签页
-edge-cli screenshot         # 截图（保存到 D:\2Work\Claude\imgs\）
-```
-
-**调试操作：**
-```bash
-edge-cli console            # 查看控制台
-edge-cli snapshot           # 获取快照
-```
-
-**管理操作：**
-```bash
-edge-cli close              # 关闭 Edge
-```
+└─�

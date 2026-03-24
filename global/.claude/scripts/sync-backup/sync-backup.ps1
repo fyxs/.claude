@@ -155,6 +155,20 @@ if ($config.layers.projects) {
     }
 }
 
+Write-Host "`n[Cleanup] Removing nested .git directories..."
+$rootGitPath = Join-Path $BackupRoot ".git"
+$gitDirs = Get-ChildItem -Path $BackupRoot -Directory -Recurse -Force -Filter ".git" -ErrorAction SilentlyContinue | Where-Object { $_.FullName -ne $rootGitPath }
+$gitCount = 0
+foreach ($gitDir in $gitDirs) {
+    Remove-Item -Path $gitDir.FullName -Recurse -Force -ErrorAction SilentlyContinue
+    $gitCount++
+}
+if ($gitCount -gt 0) {
+    Write-Host "  [Done] Removed $gitCount nested .git directories (excluding repository root)"
+} else {
+    Write-Host "  [Done] No nested .git directories found"
+}
+
 Write-Host "`n========================================"
 Write-Host "[Complete] Backup finished"
 Write-Host "========================================"
