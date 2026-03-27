@@ -112,59 +112,61 @@ D:\8Documents\Obsidian/
 
 ### 可用工具
 
-**1. Smart Web Fetch** ⭐ 本地环境首选
+**1. Smart Web Fetch** ⭐ 本地网页内容抓取首选
 - 位置：`D:\2Work\Claude\tools\smart-web-fetch\smart-web-fetch`
-- 支持代理（通过 curl）
-- 多级降级策略
+- 支持代理（通过 curl），本地环境可用
+- 自动内容清洗，输出结构化干净文本
+- 多级降级策略（比 curl 更健壮）
+- 适合：需要提取干净内容、页面有大量噪声的场景
 
-**2. WebFetch** ⭐ 云端环境默认
-- 开箱即用
-- 官方维护
-- 不支持代理
+**2. curl** ⭐ 简单静态内容首选
+- 走系统代理，本地环境可用
+- 适合：结构简单、直接读取原始内容的场景
+- 不做内容清洗
 
-**3. Playwright CLI** ⭐ 浏览器自动化首选（新浏览器）
-- 状态：✅ 已安装
-- 版本：`1.59.0-alpha-1771104257000`
-- Skill 位置：`D:\2Work\Claude\.claude\skills\playwright-cli\`
-- 示例脚本：`D:\2Work\Claude\auto-js\browser\playwright-*.sh`
-- **Token 节省 75%**：元素引用系统（e1, e2, e3）
-- **命令行工具**：更适合 AI 助手使用
-- **自动快照**：每次操作后自动提供页面状态
-- **限制**：❌ 不能连接已打开的浏览器
-- 功能丰富，测试稳定
+**3. WebFetch** 云端/无代理环境
+- 开箱即用，官方维护
+- **本地环境通常不通**（不走代理），慎用
+- 仅在云端或无代理问题时使用
 
-**4. Puppeteer** ⭐ 连接已打开浏览器的唯一选择
-- 位置：`D:\2Work\Claude\node_modules\@puppeteer`
-- 包：`puppeteer-core@^24.38.0`
-- 测试脚本：`auto-js/browser/test-puppeteer-simple.js`
-- **CDP 协议连接**：✅ 可连接已打开的浏览器
-- 需要编写 JavaScript 代码
-- 适合复杂编程逻辑场景
+**3. agent-browser** ⭐ 浏览器自动化唯一工具（2026-03-27 全量替换）
+- 版本：`0.22.3`（已全局安装）
+- Skill 实际位置：`C:\Users\admin\.claude\skills\agent-browser\`（全局，软连接共享）
+- 源码：`D:\2Work\Claude\tools\agent-browser\`
+- **支持连接日常 Edge**：`--cdp 9222` 或 `--auto-connect`
+- **支持新浏览器会话**：默认模式
+- **@eN 引用系统**：无需 CSS 选择器
+- **代理自动读取**：HTTP_PROXY/HTTPS_PROXY 环境变量
+- 完整功能：Diff、HAR、Auth Vault、多 Session、Dashboard
+
+**废弃工具（不再使用）：**
+- ~~Playwright CLI~~ — 已移除 skill（2026-03-27）
+- ~~Puppeteer / edge-cli~~ — 所有场景由 agent-browser 覆盖
 
 ---
 
 ### 自动选择逻辑
 
 ```
-本地 + 代理？
-    ↓ 是
+需要抓取网页内容？
+    ↓
+本地环境（常态）
+    ↓
+内容简单，不需要清洗？
+    ↓ 是 → curl
+    ↓ 否（有噪声/需要结构化提取）
     → Smart Web Fetch ✅
-    ↓ 否
-静态页面？
-    ↓ 是
-    → WebFetch（默认）
-    ↓ 否
-动态页面/浏览器自动化？
-    ↓ 是
-需要连接已打开的浏览器？
-    ↓ 是
-    → Puppeteer（唯一选择）✅
-    ↓ 否
-创建新浏览器进行自动化？
-    ↓ 是
-    → Playwright CLI（首选）✅
-    ↓ 需要复杂编程逻辑？
-    → Puppeteer（备选）
+    ↓
+页面需要 JS 渲染 / 交互？
+    → agent-browser ✅
+
+云端 / 无代理问题？
+    → WebFetch
+
+浏览器自动化？（无论新浏览器还是日常 Edge）
+    → agent-browser ✅
+      - 日常 Edge：agent-browser --cdp 9222 ...
+      - 新浏览器：agent-browser open ...
 ```
 
 ---
@@ -236,8 +238,10 @@ D:\8Documents\Obsidian/
 - 使用分段输出策略
 
 **工具选择：**
-- 根据环境和需求自动选择
-- 保留备选方案
+- 本地简单内容：curl
+- 本地需要清洗/结构化：Smart Web Fetch（WebFetch 在本地通常不通）
+- 云端/无代理问题：WebFetch
+- JS 渲染 / 浏览器自动化：agent-browser（含日常 Edge 和新浏览器）
 
 **任务监控：**
 - 主动监控长时间任务

@@ -314,8 +314,7 @@ mkdir -p "D:\Work\AI\.claude\settings"
 
 ### 相关规则
 
-- **domain-mcp-configuration-guide.md** - MCP 配置指南
-- **tools-environment.md** - 工具配置
+- **global-tools-environment.md** - 工具配置
 
 ### 后续操作
 

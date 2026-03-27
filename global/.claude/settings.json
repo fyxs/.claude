@@ -1,19 +1,12 @@
 {
-  "alwaysThinkingEnabled": true,
   "env": {
-    "ANTHROPIC_AUTH_TOKEN": "sk-YEi7NsEgy0yJ7F2ivQCcZMDy4WVfsPwiXPVNuc5Is8iHhMhB",
-    "ANTHROPIC_BASE_URL": "http://47.253.7.24:3000",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
-    "MAX_THINKING_TOKENS": "15000"
+    "ANTHROPIC_AUTH_TOKEN": "sk-rNtkeqLnLDProUQXrBCprZySkP5a7CoeWHXPmXpVdjhonIQS",
+    "ANTHROPIC_BASE_URL": "https://minimax.a7m.com.cn",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "MiniMax-M2.7-highspeed",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "MiniMax-M2.7-highspeed",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "MiniMax-M2.7-highspeed",
+    "ANTHROPIC_MODEL": "MiniMax-M2.7-highspeed",
+    "ANTHROPIC_REASONING_MODEL": "MiniMax-M2.7-highspeed"
   },
-  "includeCoAuthoredBy": false,
-  "model": "sonnet",
-  "permissions": {
-    "allow": [],
-    "deny": []
-  },
-  "skipDangerousModePermissionPrompt": true,
-  "verbose": false
+  "includeCoAuthoredBy": false
 }

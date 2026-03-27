@@ -1,9 +1,9 @@
 # Claude 配置架构总览
 
 > 规则 ID: GLOBAL-ARCH-001
-> 版本: 1.1.0
+> 版本: 1.2.0
 > 创建日期: 2026-03-10
-> 最后更新: 2026-03-18
+> 最后更新: 2026-03-27
 > 状态: 发布
 
 ## 全局层规则索引
@@ -13,8 +13,10 @@
 - `global-notebooklm-usage.md` - NotebookLM 使用规则
 - `global-token-optimization.md` - Token 与性能优化策略（已合并 PERF-002）
 - `global-tools-environment.md` - 工具与环境配置
-- `global-sdd-workflow.md` - Spec-Driven Development 工作流规则（GLOBAL-WORKFLOW-002）
-- `global-development-workflow.md` - 开发实施工作流：研究、计划、TDD、审查、验证、Git（原 domain-development-workflow.md）
+- `global-edge-browser-automation.md` - 浏览器自动化规则（agent-browser 唯一工具）
+- `global-sdd-workflow.md` - **主工作流**：SDD /specify /plan /tasks（GLOBAL-WORKFLOW-002）
+- `global-development-workflow.md` - 实现层工作流：研究复用、Annotation Cycle、验证、Git（GLOBAL-WORKFLOW-001）
+- `global-development-agent-orchestration.md` - Agent 编排：planner/reviewer/并行执行/TodoWrite（GLOBAL-AGENT-001）
 
 ---
 

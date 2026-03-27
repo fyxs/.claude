@@ -24,10 +24,17 @@
 
 ## 核心规则
 
-### 开发工作流
-- **TDD 强制执行**：先写测试，再写代码
-- **代码审查必需**：完成代码后立即审查
-- **测试覆盖率**：最低 80%
+### 开发工作流（SDD 优先）
+
+**主工作流**：`/specify → /plan → /tasks → 实现`，每阶段产出后必须等待用户确认。
+
+- `/specify` — 生成规格说明（spec.md）
+- `/plan` — 生成实现计划（plan.md + research.md + contracts/）
+- `/tasks` — 生成任务列表（tasks.md）
+
+**实现层**：有 SDD 产物时直接从 tasks.md 实现；无产物时研究→计划→实现。
+
+**TDD**：视项目情况决定，不强制。
 
 ### 文件归类
 - 自动化脚本 → `auto-js/`
@@ -37,15 +44,14 @@
 - 配置模板 → `configs/`
 - **Plan 文档** → 各层 `.claude/plans/`
   - 全局层 plan → `~/.claude/plans/`
-  - 领域层 plan → `D:\2Work\Claude\.claude/plans/`
+  - 领域层 plan → `D:\2Work\Claude\.claude\plans\`
   - 应用层 plan → `ts-projects/.claude/plans/` 或 `personal-projects/.claude/plans/`
   - 项目层 plan → `项目目录/.claude/plans/`
-  - **原则**：每层的 plan 归到该层，不跨层存放
 
 ### 工具使用
 - **NotebookLM**：仅在明确要求或使用 `notebooklm` 前缀时使用
 - **Obsidian**：知识记录（前缀：`obsidian`）
-- **Edge 自动化**：浏览器操作（关键词：`edge 访问`）
+- **浏览器自动化**：统一使用 `agent-browser`（`--cdp 9222` 连接日常 Edge）
 
 ### Obsidian 存放目录
 路径：`D:\8Documents\Obsidian`
@@ -64,11 +70,14 @@
 ## 详细规则
 
 完整规则体系位于 `.claude/rules/`：
-- `architecture.md` — 配置架构说明
-- `INDEX.md` — 规则索引
-- `domain-development-workflow.md` — 开发工作流
-- `domain-agent-orchestration.md` — Agent 编排
-- 更多规则请查看 INDEX.md
+- `architecture.md` — 领域配置架构说明
+- `INDEX.md` — 规则索引（含全局层 + 领域层完整列表）
+- `domain-code-analysis-best-practices.md` — 代码分析最佳实践
+- `domain-comprehensive-replacement-workflow.md` — 全面替换工作流
+- `domain-project-initialization.md` — 项目初始化规则
+- `domain-standards-security.md` — 代码标准与安全
+
+全局规则位于 `~/.claude/rules/common/`，详见全局 CLAUDE.md。
 
 ---
 

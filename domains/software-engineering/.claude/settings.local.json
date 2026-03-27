@@ -109,5 +109,9 @@
       "Bash(volta run --node 22 npm install -g @siteboon/claude-code-ui@1.25.2)",
       "Bash(npm ls -g @siteboon/claude-code-ui)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "figma",
+    "webmcp"
+  ]
 }

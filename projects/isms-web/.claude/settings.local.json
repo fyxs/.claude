@@ -1,0 +1,6 @@
+{
+  "disabledMcpjsonServers": [
+    "figma",
+    "webmcp"
+  ]
+}

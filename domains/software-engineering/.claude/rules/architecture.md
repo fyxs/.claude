@@ -1,18 +1,22 @@
 # Claude 配置架构说明
 
 > 规则 ID: DOMAIN-ARCH-001
-> 版本: 1.1.0
+> 版本: 2.0.0
 > 创建日期: 2026-03-09
-> 最后更新: 2026-03-09
+> 最后更新: 2026-03-27
 > 状态: 发布
 
 ## 规则文件索引
 
 ### 领域层规则
-- `architecture.md` - 本文档，配置架构说明（包含工作区配置）
+- `architecture.md` - 本文档，配置架构说明
+- `domain-code-analysis-best-practices.md` - 代码分析最佳实践
+- `domain-comprehensive-replacement-workflow.md` - 全面替换工作流
 - `domain-project-initialization.md` - 项目初始化规则
-- `domain-edge-browser-automation.md` - Edge 浏览器自动化
-- `domain-mcp-configuration-guide.md` - MCP 配置分层指南
+- `domain-standards-security.md` - 代码标准与安全
+
+### 全局层规则（参考）
+- 详见 `~/.claude/rules/architecture.md`
 
 ### 应用层规则
 - `ts-projects/.claude/rules/common/app-enterprise-standards.md` - 企业开发规范
@@ -62,17 +66,15 @@
 
 **存放内容**：
 - 软件工程专业规则
-- 开发工作流（TDD、代码审查、Git 工作流）
-- Agent 编排策略
-- 性能和安全规范
-- Token 优化策略
+- 代码分析与替换工作流
+- 代码标准与安全规范
+- 项目初始化规则
 - 领域特定工具配置
 
 **示例**：
-- TDD 强制规则
-- 代码审查标准
+- 代码分析最佳实践
+- 全面替换工作流
 - 安全检查清单
-- 测试覆盖率要求
 
 ---
 
