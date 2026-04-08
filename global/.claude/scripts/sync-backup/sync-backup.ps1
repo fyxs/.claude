@@ -37,6 +37,21 @@ function Backup-WithExclude {
             $count++
         }
     }
+
+    # Sync deletions: remove files in target that no longer exist in source
+    $targetItems = Get-ChildItem -Path $Target -Recurse -Force
+    foreach ($targetItem in $targetItems) {
+        $relPath = $targetItem.FullName.Substring($Target.Length).TrimStart('\')
+        $sourcePath = Join-Path $Source $relPath
+        if (-not (Test-Path $sourcePath)) {
+            if ($targetItem.PSIsContainer) {
+                Remove-Item -Path $targetItem.FullName -Recurse -Force -ErrorAction SilentlyContinue
+            } else {
+                Remove-Item -Path $targetItem.FullName -Force -ErrorAction SilentlyContinue
+            }
+        }
+    }
+
     return $count
 }
 
@@ -63,10 +78,36 @@ function Backup-Assets {
         } else {
             $targetDir = Split-Path $target -Parent
             if (-not (Test-Path $targetDir)) { New-Item -ItemType Directory -Path $targetDir -Force | Out-Null }
-            Copy-Item -Path $asset.source -Destination $target -Force
+            Copy-Item -Path $item.FullName -Destination $target -Force
             $count++
         }
     }
+
+    # Sync deletions: remove files in target that no longer exist in source
+    foreach ($asset in $Assets) {
+        $target = Join-Path $BaseTarget $asset.target
+        if (Test-Path $target) {
+            if ((Get-Item $asset.source -ErrorAction SilentlyContinue).PSIsContainer) {
+                $targetItems = Get-ChildItem -Path $target -Recurse -Force
+                foreach ($targetItem in $targetItems) {
+                    $relPath = $targetItem.FullName.Substring($target.Length).TrimStart('\')
+                    $sourcePath = Join-Path $asset.source $relPath
+                    if (-not (Test-Path $sourcePath)) {
+                        if ($targetItem.PSIsContainer) {
+                            Remove-Item -Path $targetItem.FullName -Recurse -Force -ErrorAction SilentlyContinue
+                        } else {
+                            Remove-Item -Path $targetItem.FullName -Force -ErrorAction SilentlyContinue
+                        }
+                    }
+                }
+            } else {
+                if (-not (Test-Path $asset.source)) {
+                    Remove-Item -Path $target -Force -ErrorAction SilentlyContinue
+                }
+            }
+        }
+    }
+
     return $count
 }
 

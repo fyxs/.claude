@@ -1,0 +1,9 @@
+{
+  "id": "6",
+  "subject": "修复任务选择器溢出逻辑",
+  "description": "修改 analysis-report 的 task-selector 组件，按 spec 实现折叠态可见 tag 计算、更多/收起切换，并避免半个 tag 被裁切。",
+  "activeForm": "修复任务选择器溢出逻辑",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

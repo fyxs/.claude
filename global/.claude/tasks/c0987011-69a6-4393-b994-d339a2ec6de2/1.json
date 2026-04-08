@@ -1,0 +1,9 @@
+{
+  "id": "1",
+  "subject": "核对任务选择器需求",
+  "description": "读取 tasks.md、计划/规格和现有 task-selector 组件，确认溢出处理的预期行为与当前实现差异。",
+  "activeForm": "核对任务选择器需求",
+  "status": "in_progress",
+  "blocks": [],
+  "blockedBy": []
+}

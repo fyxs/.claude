@@ -1,0 +1,9 @@
+{
+  "id": "4",
+  "subject": "验证任务选择器修复",
+  "description": "运行必要检查，并在浏览器中验证任务选择器修复后的视觉与交互表现；完成后进行代码审查与安全审查。",
+  "activeForm": "验证任务选择器修复",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

@@ -1,9 +1,9 @@
 # 工具与环境配置
 
 > 规则 ID: GLOBAL-TOOL-002
-> 版本: 1.0.0
+> 版本: 1.3.0
 > 创建日期: 2026-03-09
-> 最后更新: 2026-03-09
+> 最后更新: 2026-04-08
 > 状态: 发布
 
 > 本文档整合了环境配置、工具使用策略和任务监控规则。
@@ -119,9 +119,9 @@ D:\8Documents\Obsidian/
 - 多级降级策略（比 curl 更健壮）
 - 适合：需要提取干净内容、页面有大量噪声的场景
 
-**2. curl** ⭐ 简单静态内容首选
+**2. curl** 备选工具
 - 走系统代理，本地环境可用
-- 适合：结构简单、直接读取原始内容的场景
+- 适合：Smart Web Fetch 不可用时的降级方案
 - 不做内容清洗
 
 **3. WebFetch** 云端/无代理环境
@@ -138,6 +138,7 @@ D:\8Documents\Obsidian/
 - **@eN 引用系统**：无需 CSS 选择器
 - **代理自动读取**：HTTP_PROXY/HTTPS_PROXY 环境变量
 - 完整功能：Diff、HAR、Auth Vault、多 Session、Dashboard
+- **详细规则**：见 [global-edge-browser-automation.md](./global-edge-browser-automation.md)（含 CDP 连接异常处理策略）
 
 **废弃工具（不再使用）：**
 - ~~Playwright CLI~~ — 已移除 skill（2026-03-27）
@@ -151,11 +152,7 @@ D:\8Documents\Obsidian/
 需要抓取网页内容？
     ↓
 本地环境（常态）
-    ↓
-内容简单，不需要清洗？
-    ↓ 是 → curl
-    ↓ 否（有噪声/需要结构化提取）
-    → Smart Web Fetch ✅
+    → Smart Web Fetch ✅（默认首选，自带多级降级策略）
     ↓
 页面需要 JS 渲染 / 交互？
     → agent-browser ✅
@@ -168,6 +165,8 @@ D:\8Documents\Obsidian/
       - 日常 Edge：agent-browser --cdp 9222 ...
       - 新浏览器：agent-browser open ...
 ```
+
+**curl 仅作为备选**：Smart Web Fetch 不可用时（如工具故障）才降级使用 curl。
 
 ---
 
@@ -238,8 +237,8 @@ D:\8Documents\Obsidian/
 - 使用分段输出策略
 
 **工具选择：**
-- 本地简单内容：curl
-- 本地需要清洗/结构化：Smart Web Fetch（WebFetch 在本地通常不通）
+- 本地网页抓取：Smart Web Fetch（默认首选，自带降级策略，覆盖所有场景）
+- Smart Web Fetch 不可用时：curl（备选）
 - 云端/无代理问题：WebFetch
 - JS 渲染 / 浏览器自动化：agent-browser（含日常 Edge 和新浏览器）
 

@@ -1,0 +1,9 @@
+{
+  "id": "9",
+  "subject": "运行类型检查",
+  "description": "对 task-selector 修改后运行项目 TypeScript 检查，确认没有引入新的类型错误。",
+  "activeForm": "运行类型检查",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": []
+}

@@ -1,8 +1,9 @@
 #!/bin/bash
 #
-# Smart Web Fetch - 智能网页抓取工具
+# Smart Web Fetch Pro - 智能网页抓取工具 (增强版)
 # 替代内置 web_fetch，自动使用多种清洗服务获取干净 Markdown
 # 支持多级降级策略，大幅降低 Token 消耗
+# 四级降级：Jina Reader → markdown.new → defuddle.md → Scrapling (反爬)
 #
 
 set -e
@@ -20,13 +21,13 @@ MAX_RETRIES=2
 
 # 清洗服务（按优先级排序）
 JINA_READER="https://r.jina.ai/http"
-MARKDOWN_NEW="https://api.markdown.new/api/v1/convert"
-DEFUDDLE_MD="https://defuddle.md/api/convert"
+MARKDOWN_NEW="https://markdown.new"
+DEFUDDLE_MD="https://defuddle.md"
 
 # 打印帮助信息
 show_help() {
     cat << EOF
-Smart Web Fetch - 智能网页抓取工具
+Smart Web Fetch Pro - 智能网页抓取工具 (增强版)
 
 用法:
     smart-web-fetch <URL> [选项]
@@ -34,22 +35,28 @@ Smart Web Fetch - 智能网页抓取工具
 选项:
     -h, --help          显示帮助信息
     -o, --output FILE   输出到文件
-    -s, --service NAME  指定清洗服务 (jina|markdown|defuddle)
+    -s, --service NAME  指定清洗服务 (jina|markdown|defuddle|scrapling)
     -v, --verbose       显示详细日志
+    -j, --json          输出 JSON 格式（包含 source 等元数据）
     --no-clean          禁用 HTML 清洗（仅使用基础抓取）
 
 示例:
     smart-web-fetch https://example.com
     smart-web-fetch https://example.com -o output.md
     smart-web-fetch https://example.com -s jina
+    smart-web-fetch https://mp.weixin.qq.com/s/xxx --json
 
 支持的清洗服务:
-    jina        - Jina Reader (r.jina.ai) - 推荐，最稳定
-    markdown    - markdown.new API
-    defuddle    - defuddle.md
+    jina        - Jina Reader (r.jina.ai) - 推荐，最稳定，速度快
+    markdown    - markdown.new API - 备用服务
+    defuddle    - defuddle.md - 备用服务
+    scrapling   - Python Scrapling - 处理反爬页面（如微信公众号）
 
 降级策略:
-    默认会自动尝试多个服务，直到成功获取内容。
+    1. Jina Reader (普通网页，速度最快)
+    2. markdown.new (Jina 失败时降级)
+    3. defuddle.md (前两级失败时降级)
+    4. Scrapling (反爬页面，如微信公众号)
 EOF
 }
 
@@ -70,20 +77,16 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1" >&2
 }
 
-# URL 编码函数
-url_encode() {
-    local string="$1"
-    local encoded=""
-    local pos c o
+# 检测内容是否被反爬拦截
+is_blocked_content() {
+    local content="$1"
+    local content_lower=$(echo "$content" | tr '[:upper:]' '[:lower:]')
 
-    for (( pos=0; pos<${#string}; pos++ )); do
-        c="${string:$pos:1}"
-        case "$c" in
-            [-_.~a-zA-Z0-9]) encoded+="$c" ;;
-            *) printf -v o '%%%02x' "'$c"; encoded+="$o" ;;
-        esac
-    done
-    echo "$encoded"
+    # 检测反爬关键词
+    if echo "$content_lower" | grep -qiE '(环境异常 | 验证|captcha|access denied|blocked|forbidden|403 forbidden|cloudflare)'; then
+        return 0
+    fi
+    return 1
 }
 
 # 使用 Jina Reader 获取内容
@@ -91,16 +94,26 @@ fetch_jina() {
     local url="$1"
     log_info "尝试使用 Jina Reader 获取内容..."
 
+    # Jina Reader 直接使用 URL 作为参数
+    local jina_url="https://r.jina.ai/${url}"
+
     local response
     if ! response=$(curl -sL --max-time "$TIMEOUT" \
-        -H "User-Agent: SmartWebFetch/1.0" \
-        "${JINA_READER}://${url}" 2>&1); then
+        -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+        -H "Accept: text/html,application/xhtml+xml" \
+        "$jina_url" 2>&1); then
         log_warn "Jina Reader 请求失败"
         return 1
     fi
 
-    if [[ -z "$response" ]] || echo "$response" | grep -qi "error" || [[ ${#response} -lt 100 ]]; then
-        log_warn "Jina Reader 返回内容无效"
+    if [[ -z "$response" ]] || [[ ${#response} -lt 100 ]]; then
+        log_warn "Jina Reader 返回内容过短"
+        return 1
+    fi
+
+    # 检查是否被反爬拦截
+    if is_blocked_content "$response"; then
+        log_warn "Jina Reader 内容可能被反爬拦截"
         return 1
     fi
 
@@ -116,33 +129,26 @@ fetch_markdown_new() {
 
     local response
     if ! response=$(curl -sL --max-time "$TIMEOUT" \
-        -X POST \
-        -H "Content-Type: application/json" \
-        -H "User-Agent: SmartWebFetch/1.0" \
-        -d "{\"url\":\"$url\"}" \
-        "$MARKDOWN_NEW" 2>&1); then
+        -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+        -H "Accept: text/html,application/xhtml+xml" \
+        "${MARKDOWN_NEW}/${url}" 2>&1); then
         log_warn "markdown.new 请求失败"
         return 1
     fi
 
-    if [[ -z "$response" ]] || echo "$response" | grep -qi "error"; then
-        log_warn "markdown.new 返回内容无效"
+    if [[ -z "$response" ]] || [[ ${#response} -lt 100 ]]; then
+        log_warn "markdown.new 返回内容过短"
         return 1
     fi
 
-    # 尝试提取 markdown 字段
-    local markdown
-    if command -v jq &>/dev/null; then
-        markdown=$(echo "$response" | jq -r '.markdown // .content // .data // empty')
+    # 检查是否被反爬拦截
+    if is_blocked_content "$response"; then
+        log_warn "markdown.new 内容可能被反爬拦截"
+        return 1
     fi
 
-    if [[ -n "$markdown" ]] && [[ "$markdown" != "null" ]]; then
-        log_success "markdown.new 成功获取内容"
-        echo "$markdown"
-    else
-        log_success "markdown.new 成功获取内容"
-        echo "$response"
-    fi
+    log_success "markdown.new 成功获取内容"
+    echo "$response"
     return 0
 }
 
@@ -153,23 +159,57 @@ fetch_defuddle() {
 
     local response
     if ! response=$(curl -sL --max-time "$TIMEOUT" \
-        -X POST \
-        -H "Content-Type: application/json" \
-        -H "User-Agent: SmartWebFetch/1.0" \
-        -d "{\"url\":\"$url\"}" \
-        "$DEFUDDLE_MD" 2>&1); then
+        -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+        -H "Accept: text/html,application/xhtml+xml" \
+        "${DEFUDDLE_MD}/${url}" 2>&1); then
         log_warn "defuddle.md 请求失败"
         return 1
     fi
 
-    if [[ -z "$response" ]] || echo "$response" | grep -qi "error"; then
-        log_warn "defuddle.md 返回内容无效"
+    if [[ -z "$response" ]] || [[ ${#response} -lt 100 ]]; then
+        log_warn "defuddle.md 返回内容过短"
+        return 1
+    fi
+
+    # 检查是否被反爬拦截
+    if is_blocked_content "$response"; then
+        log_warn "defuddle.md 内容可能被反爬拦截"
         return 1
     fi
 
     log_success "defuddle.md 成功获取内容"
     echo "$response"
     return 0
+}
+
+# 使用 Scrapling 获取内容 (处理反爬页面)
+fetch_scrapling() {
+    local url="$1"
+    log_info "尝试使用 Scrapling 获取内容（处理反爬页面）..."
+
+    # 检查 Scrapling 是否已安装
+    if ! python3 -c "import scrapling" 2>/dev/null; then
+        log_warn "Scrapling 未安装，请使用以下命令安装:"
+        log_warn "pip3 install scrapling html2text curl_cffi browserforge"
+        return 1
+    fi
+
+    # 使用 Python 脚本获取内容
+    local script_dir="$(dirname "$0")"
+    local scrapling_script="${script_dir}/fetch_scrapling.py"
+
+    if [[ -f "$scrapling_script" ]]; then
+        local response
+        response=$(python3 "$scrapling_script" "$url" 2>&1)
+        if [[ $? -eq 0 ]] && [[ -n "$response" ]]; then
+            log_success "Scrapling 成功获取内容"
+            echo "$response"
+            return 0
+        fi
+    fi
+
+    log_warn "Scrapling 获取失败"
+    return 1
 }
 
 # 基础抓取（使用 curl 直接获取）
@@ -199,26 +239,6 @@ fetch_basic() {
     return 0
 }
 
-# 清洗 HTML（移除脚本、样式等）
-clean_html() {
-    local html="$1"
-
-    # 使用 sed 进行基础清洗
-    echo "$html" | sed \
-        -e 's/<script[^>]*>[\s\S]*?<\/script>//gi' \
-        -e 's/<style[^>]*>[\s\S]*?<\/style>//gi' \
-        -e 's/<nav[^>]*>[\s\S]*?<\/nav>//gi' \
-        -e 's/<header[^>]*>[\s\S]*?<\/header>//gi' \
-        -e 's/<footer[^>]*>[\s\S]*?<\/footer>//gi' \
-        -e 's/<aside[^>]*>[\s\S]*?<\/aside>//gi' \
-        -e 's/<noscript[^>]*>[\s\S]*?<\/noscript>//gi' \
-        -e 's/<!--[\s\S]*?-->//g' \
-        -e 's/class="[^"]*"//g' \
-        -e 's/id="[^"]*"//g' \
-        -e 's/style="[^"]*"//g' \
-        -e 's/on\w*="[^"]*"//gi'
-}
-
 # 主抓取函数
 smart_fetch() {
     local url="$1"
@@ -234,10 +254,10 @@ smart_fetch() {
     # 添加协议前缀（如果没有）
     if [[ ! "$url" =~ ^https?:// ]]; then
         url="https://$url"
-        log_info "自动添加 https:// 前缀: $url"
+        log_info "自动添加 https:// 前缀：$url"
     fi
 
-    log_info "开始抓取: $url"
+    log_info "开始抓取：$url"
 
     # 如果指定了服务，优先使用
     if [[ -n "$specified_service" ]]; then
@@ -251,8 +271,11 @@ smart_fetch() {
             defuddle)
                 result=$(fetch_defuddle "$url") && { echo "$result"; return 0; }
                 ;;
+            scrapling)
+                result=$(fetch_scrapling "$url") && { echo "$result"; return 0; }
+                ;;
             *)
-                log_warn "未知服务: $specified_service"
+                log_warn "未知服务：$specified_service"
                 ;;
         esac
     fi
@@ -260,7 +283,7 @@ smart_fetch() {
     # 默认降级策略
     log_info "使用自动降级策略..."
 
-    # 1. 尝试 Jina Reader (最稳定)
+    # 1. 尝试 Jina Reader (最稳定，速度最快)
     result=$(fetch_jina "$url") && { echo "$result"; return 0; }
 
     # 2. 尝试 markdown.new
@@ -269,7 +292,10 @@ smart_fetch() {
     # 3. 尝试 defuddle.md
     result=$(fetch_defuddle "$url") && { echo "$result"; return 0; }
 
-    # 4. 基础抓取
+    # 4. 尝试 Scrapling (反爬页面)
+    result=$(fetch_scrapling "$url") && { echo "$result"; return 0; }
+
+    # 5. 基础抓取
     if [[ "$NO_CLEAN" != "1" ]]; then
         result=$(fetch_basic "$url") && { echo "$result"; return 0; }
     fi
@@ -284,6 +310,7 @@ OUTPUT=""
 SERVICE=""
 VERBOSE="0"
 NO_CLEAN="0"
+JSON_OUTPUT="0"
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -303,12 +330,16 @@ while [[ $# -gt 0 ]]; do
             VERBOSE="1"
             shift
             ;;
+        -j|--json)
+            JSON_OUTPUT="1"
+            shift
+            ;;
         --no-clean)
             NO_CLEAN="1"
             shift
             ;;
         -*)
-            log_error "未知选项: $1"
+            log_error "未知选项：$1"
             show_help
             exit 1
             ;;
@@ -330,12 +361,34 @@ CONTENT=$(smart_fetch "$URL" "$SERVICE")
 EXIT_CODE=$?
 
 if [[ $EXIT_CODE -eq 0 ]]; then
-    if [[ -n "$OUTPUT" ]]; then
+    if [[ "$JSON_OUTPUT" == "1" ]]; then
+        # 输出 JSON 格式
+        SOURCE="${SERVICE:-auto}"
+        cat << EOF
+{
+  "success": true,
+  "url": "$URL",
+  "content": $(echo "$CONTENT" | python3 -c 'import sys,json; print(json.dumps(sys.stdin.read(), ensure_ascii=False))'),
+  "source": "$SOURCE"
+}
+EOF
+    elif [[ -n "$OUTPUT" ]]; then
         echo "$CONTENT" > "$OUTPUT"
-        log_success "内容已保存到: $OUTPUT"
+        log_success "内容已保存到：$OUTPUT"
     else
         echo "$CONTENT"
     fi
 else
+    if [[ "$JSON_OUTPUT" == "1" ]]; then
+        cat << EOF
+{
+  "success": false,
+  "url": "$URL",
+  "content": "",
+  "source": "none",
+  "error": "所有抓取方式均失败"
+}
+EOF
+    fi
     exit 1
 fi

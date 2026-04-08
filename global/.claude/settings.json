@@ -1,4 +1,5 @@
 {
+  "effortLevel": "high",
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "sk-rNtkeqLnLDProUQXrBCprZySkP5a7CoeWHXPmXpVdjhonIQS",
     "ANTHROPIC_BASE_URL": "https://minimax.a7m.com.cn",
@@ -7,6 +8,34 @@
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "MiniMax-M2.7-highspeed",
     "ANTHROPIC_MODEL": "MiniMax-M2.7-highspeed",
     "ANTHROPIC_REASONING_MODEL": "MiniMax-M2.7-highspeed"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node \"C:/Users/admin/.claude/hooks/gitnexus/gitnexus-hook.cjs\"",
+            "statusMessage": "Checking GitNexus index freshness...",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node \"C:/Users/admin/.claude/hooks/gitnexus/gitnexus-hook.cjs\"",
+            "statusMessage": "Enriching with GitNexus graph context...",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Grep|Glob|Bash"
+      }
+    ]
   },
   "includeCoAuthoredBy": false
 }

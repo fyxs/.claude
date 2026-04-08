@@ -1,0 +1,9 @@
+{
+  "id": "2",
+  "subject": "复现任务选择器问题",
+  "description": "通过浏览器查看 http://localhost:4210/web/rism/data-analysis 页面中任务选择器的当前表现，确认更多/收起与 tag 溢出问题。",
+  "activeForm": "复现任务选择器问题",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

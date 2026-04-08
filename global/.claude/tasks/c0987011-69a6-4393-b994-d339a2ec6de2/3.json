@@ -1,0 +1,9 @@
+{
+  "id": "3",
+  "subject": "修复任务选择器溢出交互",
+  "description": "修改 src/views/analysis-report/components/task-selector.vue，实现 tasks.md 要求的任务 tag 溢出处理、更多展开与收起交互。",
+  "activeForm": "修复任务选择器溢出交互",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "5",
+  "subject": "核对任务选择器需求",
+  "description": "读取 SPEC-001 的 T6 任务选择器要求和当前 task-selector.vue 实现，明确溢出折叠/展开的预期行为与现状差异。",
+  "activeForm": "核对任务选择器需求",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

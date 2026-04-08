@@ -1,12 +1,13 @@
 # 浏览器自动化规则
 
 > 规则 ID: GLOBAL-TOOL-003
-> 版本: 2.0.0
+> 版本: 2.1.0
 > 创建日期: 2026-03-09
-> 最后更新: 2026-03-27
+> 最后更新: 2026-04-08
 > 状态: 发布
 
 > 本规则定义了浏览器自动化操作的唯一工具标准。
+> **2.1.0 更新**：新增 CDP 连接异常处理策略。
 > **2.0.0 重大更新**：全面迁移至 agent-browser，废弃 Playwright CLI、Puppeteer、edge-cli。
 
 ## 唯一工具：agent-browser
@@ -108,6 +109,51 @@ agent-browser 自动读取系统代理环境变量，**无需额外配置**：
 # 也可显式指定
 agent-browser --proxy "http://127.0.0.1:7890" open https://example.com
 ```
+
+---
+
+## CDP 连接异常处理策略
+
+> **问题场景**：`--cdp 9222` 连接时出现 `Navigation failed: net::ERR_NAME_NOT_RESOLVED` 或超时，session 状态异常（`chrome-error://chromewebdata/`）。
+
+**诊断步骤**：
+
+```bash
+# 1. 检查当前 session 状态
+agent-browser --cdp 9222 get url
+# 异常时返回: chrome-error://chromewebdata/
+
+# 2. 检查当前 URL 和标题
+agent-browser --cdp 9222 get title
+# 确认是否已导航到目标页面
+
+# 3. 尝试关闭后用 --auto-connect 重连
+agent-browser --cdp 9222 close
+agent-browser --auto-connect open <url>
+```
+
+**连接模式优先级**：
+
+| 优先级 | 方式 | 说明 |
+|--------|------|------|
+| 1（推荐） | `--auto-connect` | 自动发现已运行浏览器，最可靠 |
+| 2 | `--cdp 9222` | 固定端口，session 缓存可能过期 |
+| 3 | `connect 9222` | 先连接再操作，适合多命令场景 |
+
+**原则**：
+- `--auto-connect` 是最可靠的连接方式，优先使用
+- `--cdp 9222` 出现异常时，优先尝试 `--auto-connect` 重连
+- 不要多次重试同一连接方式，先换模式再重试
+- 确认目标页面已打开后再执行交互命令
+
+**典型异常与应对**：
+
+| 异常 | 原因 | 处理方式 |
+|------|------|---------|
+| `ERR_NAME_NOT_RESOLVED` | 目标地址 DNS 不可达 | 确认 URL 正确性，换用 `--auto-connect` |
+| `Navigation failed: net::ERR_*` | 网络或页面问题 | `close` 后 `agent-browser --auto-connect open` |
+| `Operation timed out` | session 状态异常 | 直接 `close` 重连 |
+| `chrome-error://chromewebdata/` | session 缓存过期 | `close` 后用 `--auto-connect` 重连 |
 
 ---
 
@@ -231,3 +277,4 @@ agent-browser dashboard start       # 端口 4848
 |------|------|---------|
 | 1.0.0 | 2026-03-09 | 初始版本（Playwright CLI + Puppeteer + edge-cli） |
 | 2.0.0 | 2026-03-27 | **全面迁移至 agent-browser**，废弃所有旧工具 |
+| 2.1.0 | 2026-04-08 | 新增 CDP 连接异常处理策略，`--auto-connect` 作为首选重连方式 |

@@ -1,0 +1,9 @@
+{
+  "id": "8",
+  "subject": "修复任务选择器折叠逻辑",
+  "description": "修改 analysis-report 的 task-selector 组件，解决折叠态 tag 被截半、更多/收起展开异常的问题，按 spec 实现基于容器宽度的可见 tag 数量计算。",
+  "activeForm": "修复任务选择器折叠逻辑",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": []
+}

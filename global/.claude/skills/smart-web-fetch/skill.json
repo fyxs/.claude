@@ -2,7 +2,7 @@
   "skills": [
     {
       "name": "smart-web-fetch",
-      "description": "智能网页抓取工具 - 使用 Jina Reader / markdown.new / defuddle.md 清洗服务获取干净 Markdown。支持多级降级策略，大幅降低 Token 消耗。",
+      "description": "智能网页抓取工具 - 四级降级策略 (Jina → markdown.new → defuddle → Scrapling)，支持微信公众号等反爬页面，输出干净 Markdown，节省 50-80% Token",
       "command": "/Users/kim/.claude/skills/smart-web-fetch/smart-web-fetch",
       "triggers": [
         "抓取网页",
@@ -11,7 +11,9 @@
         "fetch url",
         "获取 URL 内容",
         "读取网页",
-        "网页转 markdown"
+        "网页转 markdown",
+        "微信公众号",
+        "反爬页面"
       ],
       "examples": [
         {
@@ -21,6 +23,10 @@
         {
           "request": "用 Jina Reader 获取 https://github.com/user/repo 的 README",
           "command": "smart-web-fetch https://github.com/user/repo -s jina"
+        },
+        {
+          "request": "获取微信公众号文章并输出 JSON",
+          "command": "smart-web-fetch https://mp.weixin.qq.com/s/xxx --json"
         }
       ]
     }
@@ -29,7 +35,7 @@
     "user-prompt-submit": {
       "commands": [
         {
-          "command": "if echo '{{INPUT}}' | grep -qE '(抓取|获取|fetch).*https?://'; then URL=$(echo '{{INPUT}}' | grep -oE 'https?://[^ ]+' | head -1); echo '检测到网页抓取请求，建议使用: smart-web-fetch \"$URL\"'; fi",
+          "command": "if echo '{{INPUT}}' | grep -qE '(抓取 | 获取|fetch).*https?://'; then URL=$(echo '{{INPUT}}' | grep -oE 'https?://[^ ]+' | head -1); echo '检测到网页抓取请求，建议使用：smart-web-fetch \"$URL\"'; fi",
           "description": "Detect web fetch requests and suggest smart-web-fetch"
         }
       ]

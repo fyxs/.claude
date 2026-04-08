@@ -1,0 +1,9 @@
+{
+  "id": "7",
+  "subject": "修复任务选择器溢出逻辑",
+  "description": "修改 src/views/analysis-report/components/task-selector.vue，使折叠态按可见数量渲染完整 tag、为“更多”按钮预留空间、展开/收起切换正常，并处理空列表不渲染。",
+  "activeForm": "修复任务选择器溢出逻辑",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}
