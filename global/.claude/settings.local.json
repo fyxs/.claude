@@ -125,7 +125,8 @@
       "Bash(python3 -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(f[''''filename''''], '''':'''', f.get\\(''''additions'''',0\\), ''''lines added,'''', f.get\\(''''deletions'''',0\\), ''''deleted''''\\) for f in data[:10]]\")",
       "mcp__figma__get_design_context",
       "Bash(\"D:\\\\2Work\\\\Claude\\\\tools\\\\smart-web-fetch\\\\smart-web-fetch\" \"https://developers.figma.com/docs/figma-mcp-server/add-custom-rules/#rules-to-ensure-consistently-good-output\")",
-      "Bash(agent-browser open:*)"
+      "Bash(agent-browser open:*)",
+      "Bash(python3:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

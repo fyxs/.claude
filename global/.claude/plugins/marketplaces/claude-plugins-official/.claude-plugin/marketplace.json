@@ -385,6 +385,18 @@
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/plugins/explanatory-output-style"
     },
     {
+      "name": "expo",
+      "description": "Official Expo skills for building, deploying, upgrading, and debugging React Native apps with Expo. Covers UI development with Expo Router, SwiftUI and Jetpack Compose components, Tailwind CSS setup, API routes, data fetching, CI/CD workflows, App Store and Play Store deployment, SDK upgrades, DOM components, and dev client distribution.",
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "expo/skills",
+        "path": "plugins/expo",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
+    },
+    {
       "name": "fakechat",
       "description": "Localhost web chat for testing the channel notification flow. No tokens, no access control, no third-party service.",
       "category": "development",
@@ -1180,6 +1192,17 @@
       ]
     },
     {
+      "name": "session-report",
+      "description": "Generate an explorable HTML report of Claude Code session usage — tokens, cache efficiency, subagents, skills, and the most expensive prompts — from local ~/.claude/projects transcripts.",
+      "author": {
+        "name": "Anthropic",
+        "email": "support@anthropic.com"
+      },
+      "source": "./plugins/session-report",
+      "category": "productivity",
+      "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/session-report"
+    },
+    {
       "name": "skill-creator",
       "description": "Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis.",
       "author": {
@@ -1442,6 +1465,16 @@
         "sha": "b93007e9a726c6ee93c57a949e732744ef5acbfd"
       },
       "homepage": "https://github.com/zapier/zapier-mcp/tree/main/plugins/zapier"
+    },
+    {
+      "name": "zoom-plugin",
+      "description": "Claude plugin for planning, building, and debugging Zoom integrations across REST APIs, SDKs, webhooks, bots, and MCP workflows.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/zoom/zoom-plugin.git"
+      },
+      "homepage": "https://developers.zoom.us/"
     }
   ]
 }
