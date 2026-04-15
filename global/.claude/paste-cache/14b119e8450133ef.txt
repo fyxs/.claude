@@ -1,0 +1,22 @@
+reg query "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet"
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet
+    ActiveDnsProbeContent    REG_SZ    131.107.255.255
+    ActiveDnsProbeContentV6    REG_SZ    fd3e:4f5a:5b81::1
+    ActiveDnsProbeHost    REG_SZ    dns.msftncsi.com
+    ActiveDnsProbeHostV6    REG_SZ    dns.msftncsi.com
+    ActiveWebProbeContent    REG_SZ    Microsoft Connect Test
+    ActiveWebProbeContentV6    REG_SZ    Microsoft Connect Test
+    ActiveWebProbeHost    REG_SZ    www.msftconnecttest.com
+    ActiveWebProbeHostV6    REG_SZ    ipv6.msftconnecttest.com
+    ActiveWebProbePath    REG_SZ    connecttest.txt
+    ActiveWebProbePathV6    REG_SZ    connecttest.txt
+    CaptivePortalTimer    REG_DWORD    0x0
+    CaptivePortalTimerBackOffIncrementsInSeconds    REG_DWORD    0x5
+    CaptivePortalTimerMaxInSeconds    REG_DWORD    0x1e
+    EnableActiveProbing    REG_DWORD    0x1
+    PassivePollPeriod    REG_DWORD    0xf
+    StaleThreshold    REG_DWORD    0x1e
+    WebTimeout    REG_DWORD    0x23
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet\ManualProxies

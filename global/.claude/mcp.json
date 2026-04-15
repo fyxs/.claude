@@ -9,8 +9,8 @@
       "url": "https://webmcp-backend-prod-v2.alexmnahas.workers.dev/mcp?key=76142934-302a-4d63-a5ba-d21e904de834"
     },
     "gitnexus": {
-      "command": "npx",
-      "args": ["-y", "gitnexus", "mcp"]
+       "command": "cmd",
+       "args": ["/c", "npx", "-y", "gitnexus", "mcp"]
     }
   }
 }

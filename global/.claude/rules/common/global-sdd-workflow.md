@@ -83,16 +83,21 @@ Spec-Driven Development (SDD) 将规格说明从代码的"仆人"变成代码的
 **执行步骤**：
 1. 读取 `spec.md` 中的需求、用户故事、验收标准
 2. 执行宪法合规检查（Phase -1 Gates，见下方）
-3. 进行技术研究（库选型、性能、安全影响）
-4. 生成技术架构和实现细节
-5. 创建支撑文档
+3. **UI 任务：扫描 Figma 设计** — 从 `/plan` 参数或对话上下文中获取 Figma URL，调用 `get_metadata` 获取页面节点树，再对关键模块调用 `get_design_context` 判断组件划分边界，建立模块→节点 ID 映射（输出至 `figma-nodes.md`）。**若无 Figma URL 则跳过此步**
+4. 进行技术研究（库选型、性能、安全影响）
+5. **数据模型推导**（严格优先级，不得跳级）：
+   - 已提供接口文档 / API 定义 → **严格依据接口字段推导**，不得增删字段或自主假设类型
+   - 仅有部分接口信息 → 已知字段严格依据接口，缺失部分用 `[NEEDS CLARIFICATION]` 标记，**禁止自行补全**
+   - 完全无接口信息 → 注明"基于需求推测，待接口确认后修订"，并在 `data-model.md` 顶部加 `⚠️ 未经接口验证` 警告
+6. 生成技术架构和实现细节
+7. 创建支撑文档
 
 **输出**：
 ```
 specs/[###_分支name_任务或功能name]/
 ├── plan.md          # 实现计划（基于 plan-template.md）
 ├── research.md      # 技术研究结果
-├── data-model.md    # 数据模型
+├── data-model.md    # 数据模型（来源：接口文档 > 部分接口 > 需求推测）
 ├── quickstart.md    # 关键验证场景
 ├── contracts/       # API 合约定义
 └── figma-nodes.md   # 【UI 任务专属】Figma 节点映射表
@@ -417,3 +422,5 @@ Orchestrator（主 Agent）读取 tasks.md
 | 1.2.0 | 2026-03-27 | 明确为主工作流；Article III 由强制改为建议；更新与 global-development-workflow 的覆盖关系 | TDD 不再强制，SDD 优先 |
 | 1.3.0 | 2026-04-09 | 新增"UI 视觉任务专属规则"；/plan 新增 figma-nodes.md 产物；/tasks 新增节点读取字段规范 | 解决复杂页面视觉还原度低的问题，确立 Figma 节点为视觉真相唯一来源 |
 | 1.4.0 | 2026-04-09 | 新增"与 Agent 编排的衔接关系"；明确 /tasks 确认后的并行 Agent 触发逻辑；更新相关规则引用 | 打通 SDD 与 Agent 编排规则的连接，主 Agent 能明确知道何时及如何启动子 Agent |
+| 1.5.0 | 2026-04-09 | /plan 执行步骤新增"UI 任务扫描 Figma 设计"前置步骤；figma-nodes.md 生成时机从 /tasks 前移至 /plan 阶段 | 确保 plan 阶段就能获取完整节点映射，避免实现阶段遗漏设计细节 |
+| 1.6.0 | 2026-04-09 | /plan 数据模型推导新增严格优先级规则：有接口文档时必须依据接口字段，禁止自主补全；无接口时标注警告 | 防止 agent 在有接口信息时自主揣测数据模型导致字段不一致 |

@@ -1,0 +1,114 @@
+cmdkey /list
+
+当前保存的凭据:
+
+    目标: MicrosoftAccount:target=SSO_POP_User:user=867952383@qq.com
+    类型: 普通
+    用户: 867952383@qq.com
+    仅为此登录保存
+
+    目标: MicrosoftAccount:target=SSO_POP_User:user=Wanghm@tiansu-china.com
+    类型: 普通
+    用户: Wanghm@tiansu-china.com
+    仅为此登录保存
+
+    目标: LegacyGeneric:target=XboxLive
+    类型: 普通
+    仅为此登录保存
+
+    目标: MicrosoftAccount:target=SSO_POP_Device
+    类型: 普通
+    用户: 02jyuxmnlixvcqhf
+    仅为此登录保存
+
+    目标: LegacyGeneric:target=XblGrts|704208617||Production|RETAIL|Dtoken|http://auth.xboxlive.com||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|506671725|0003400110D1669F|Production|RETAIL|Xtoken|http://update.xboxlive.com||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|704208617|0003400110D1669F|Production|RETAIL|Xtoken|http://xboxlive.com||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|704208617||Production|RETAIL|Ttoken|http://auth.xboxlive.com||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|506671725|0003400110D1669F|Production|RETAIL|Utoken|http://auth.xboxlive.com||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|506671725||Production|RETAIL|Ttoken|http://auth.xboxlive.com||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=zed:url=https://zed.dev
+    类型: 普通
+    用户: 735345
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|704208617|0003400110D1669F|Production|RETAIL|Xtoken|http://mp.microsoft.com/||JWT|1
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=MicrosoftAccount:user=wanghm@tiansu-china.com
+    类型: 普通
+    用户: Wanghm@tiansu-china.com
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|506671725|0003400110D1669F|Production|RETAIL|Xtoken|http://xboxlive.com||JWT|1
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|704208617|0003400110D1669F|Production|RETAIL|Utoken|http://auth.xboxlive.com||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|704208617|0003400110D1669F|Production|RETAIL|Xtoken|http://mp.microsoft.com/||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|704208617||Production|RETAIL|Dtoken|http://auth.xboxlive.com||JWT|1
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|506671725|0003400110D1669F|Production|RETAIL|Xtoken|http://xboxlive.com||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|506671725|0003400110D1669F|Production|RETAIL|Xtoken|http://mp.microsoft.com/||JWT|1
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=MicrosoftAccount:user=867952383@qq.com
+    类型: 普通
+    用户: 867952383@qq.com
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|506671725|0003400110D1669F|Production|RETAIL|Xtoken|http://mp.microsoft.com/||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: WindowsLive:target=virtualapp/didlogical
+    类型: 普通
+    用户: 02jyuxmnlixvcqhf
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|704208617|0003400110D1669F|Production|RETAIL|Xtoken|http://xboxlive.com||JWT|1
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|506671725||Production|RETAIL|Dtoken|http://auth.xboxlive.com||JWT
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|DeviceKey
+    类型: 普通
+    本地机器持续时间
+
+    目标: LegacyGeneric:target=XblGrts|506671725||Production|RETAIL|Dtoken|http://auth.xboxlive.com||JWT|1
+    类型: 普通
+    本地机器持续时间

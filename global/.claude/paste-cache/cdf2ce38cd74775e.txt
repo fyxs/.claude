@@ -1,0 +1,12 @@
+bundles D:\2Work\Claude\ts-projects\ts-web-tools\packages\components\index.ts → packages/dist/index.mjs, packages/dist/index.js...
+[!] RollupError: There was an error during the build:
+  Could not resolve "./uuid-util/index" from "packages/components/index.ts"
+Additionally, handling the error in the 'buildEnd' hook caused the following error:
+  [plugin rpt2] packages/components/index.ts: Could not resolve "./uuid-util/index" from "packages/components/index.ts"
+packages/components/index.ts
+    at Object.getRollupError (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\parseAst.js:289:41)
+    at D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:24200:51
+    at catchUnfinishedHookActions (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:23693:16)
+    at Object.rollupInternal (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:24183:5)
+    at Task.run (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\watch.js:252:22)
+    at Watcher.run (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\watch.js:183:13)

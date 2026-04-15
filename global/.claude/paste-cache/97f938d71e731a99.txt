@@ -1,0 +1,24 @@
+[!] RollupError: There was an error during the build:
+  packages/components/shang-mi/sm2-tool.ts (33:21): Expected ',', got ':' (Note that you need plugins to import files that are not JavaScript)
+Additionally, handling the error in the 'buildEnd' hook caused the following error:
+  packages/components/shang-mi/sm2-tool.ts (33:21): Expected ',', got ':' (Note that you need plugins to import files that are not JavaScript)
+packages/components/shang-mi/sm2-tool.ts (33:21)
+31:    * @returns {string} 加密后的字符串（16进制）
+32:    */
+33:   static encrypt(data: string, publicKey: string) {
+                         ^
+34:     try {
+35:       if (!publicKey) {
+    at Object.getRollupError (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\parseAst.js:289:41)
+    at D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:24200:51
+    at catchUnfinishedHookActions (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:23693:16)
+    at Object.rollupInternal (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:24183:5)
+    at Task.run (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\watch.js:252:22)
+    at Watcher.run (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\watch.js:183:13)
+  [cause] RollupError: Expected ',', got ':'
+      at Object.getRollupError (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\parseAst.js:289:41)
+      at ParseError.initialise (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:16408:40)
+      at convertNode (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:18384:10)
+      at convertProgram (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:17620:12)
+      at Module.setSource (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:19356:24)
+      at ModuleLoader.addModuleSource (D:\2Work\Claude\ts-projects\ts-web-tools\node_modules\rollup\dist\shared\rollup.js:23114:13)

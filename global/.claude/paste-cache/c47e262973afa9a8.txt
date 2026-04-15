@@ -1,0 +1,120 @@
+Frame 10064: Packet, 1238 bytes on wire (9904 bits), 1238 bytes captured (9904 bits) on interface \Device\NPF_{C275C30F-CA25-430E-AF6B-B3931210EEF1}, id 0
+    Section number: 1
+    Interface id: 0 (\Device\NPF_{C275C30F-CA25-430E-AF6B-B3931210EEF1})
+        Interface name: \Device\NPF_{C275C30F-CA25-430E-AF6B-B3931210EEF1}
+        Interface description: WLAN
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Apr 14, 2026 20:13:49.236623000 中国标准时间
+    UTC Arrival Time: Apr 14, 2026 12:13:49.236623000 UTC
+    Epoch Arrival Time: 1776168829.236623000
+    [Time shift for this packet: 0.000000000 seconds]
+    [Time delta from previous captured frame: 1.015000 milliseconds]
+    [Time since reference or first frame: 59.676130000 seconds]
+    Frame Number: 10064
+    Frame Length: 1238 bytes (9904 bits)
+    Capture Length: 1238 bytes (9904 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:tcp:http]
+    Character encoding: ASCII (0)
+    [Coloring Rule Name: HTTP]
+    [Coloring Rule String: http || tcp.port == 80 || http2]
+Ethernet II, Src: Intel_53:d2:2a (f4:3b:d8:53:d2:2a), Dst: LiteonTechno_ce:85:e3 (d0:39:57:ce:85:e3)
+    Destination: LiteonTechno_ce:85:e3 (d0:39:57:ce:85:e3)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Intel_53:d2:2a (f4:3b:d8:53:d2:2a)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+    [Stream index: 14]
+Internet Protocol Version 4, Src: 192.168.101.26, Dst: 192.168.100.181
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 1224
+    Identification: 0x9b8f (39823)
+    010. .... = Flags: 0x2, Don't fragment
+        0... .... = Reserved bit: Not set
+        .1.. .... = Don't fragment: Set
+        ..0. .... = More fragments: Not set
+    ...0 0000 0000 0000 = Fragment Offset: 0
+    Time to Live: 128
+    Protocol: TCP (6)
+    Header Checksum: 0x0000 [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 192.168.101.26
+    Destination Address: 192.168.100.181
+    [Stream index: 28]
+Transmission Control Protocol, Src Port: 7301, Dst Port: 4210, Seq: 10298, Ack: 1108251, Len: 1184
+    Source Port: 7301
+    Destination Port: 4210
+    [Stream index: 47]
+    [Stream Packet Number: 902]
+    [Conversation completeness: Complete, WITH_DATA (31)]
+        ..0. .... = RST: Absent
+        ...1 .... = FIN: Present
+        .... 1... = Data: Present
+        .... .1.. = ACK: Present
+        .... ..1. = SYN-ACK: Present
+        .... ...1 = SYN: Present
+        [Completeness Flags: ·FDASS]
+    [TCP Segment Len: 1184]
+    Sequence Number: 10298    (relative sequence number)
+    Sequence Number (raw): 2042792204
+    [Next Sequence Number: 11482    (relative sequence number)]
+    Acknowledgment Number: 1108251    (relative ack number)
+    Acknowledgment number (raw): 3482093692
+    0101 .... = Header Length: 20 bytes (5)
+    Flags: 0x018 (PSH, ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Accurate ECN: Not set
+        .... 0... .... = Congestion Window Reduced: Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 1... = Push: Set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······AP···]
+    Window: 4095
+    [Calculated window size: 1048320]
+    [Window size scaling factor: 256]
+    Checksum: 0x4fdb [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    [Timestamps]
+        [Time since first frame in this TCP stream: 2.082221000 seconds]
+        [Time since previous frame in this TCP stream: 112.552000 milliseconds]
+    [SEQ/ACK analysis]
+    [Client Contiguous Streams: 1]
+    [Server Contiguous Streams: 1]
+    TCP payload (1184 bytes)
+Hypertext Transfer Protocol
+    POST /safety/api/isms/v2/menuNavigation/navigationBar/get HTTP/1.1\r\n
+        Request Method: POST
+        Request URI: /safety/api/isms/v2/menuNavigation/navigationBar/get
+        Request Version: HTTP/1.1
+    Host: 192.168.100.181:4210\r\n
+    Connection: keep-alive\r\n
+    Content-Length: 0\r\n
+        [Content length: 0]
+    Authorization: 957b4dea245943b8add4f52acdfe7e2f84da4d41264a11bc8efc3d6404d979331776156595607\r\n
+    app_id: isms-web\r\n
+    trace-id: 0305bbf3fd360ad7973d24b1437bdc48\r\n
+    region-id: 1193548114664368,1168486996085680,1171614817504176,1187195064789936\r\n
+    x-requested-with: XMLHttpRequest\r\n
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0\r\n
+    Accept: application/json, text/plain, */*\r\n
+    […] access_token: ZFJFS2Nod2U1cjNCeDVMTXQ5VEtTYXRmcXNHZFBldWF0czdLZmpnOU56a2xjeFprVmdlNmYzQ2FCZkVCOXpvRi5XME5RU0FnTWNneE9KWFJtdmpsT01PVnpDRElMNDJBVndQbkhiYUdjMWhlTjZNMmZPRFQyUXZCYUZCZ25KLzRKd3didWZQcE1waWFQSllJVW1hV2YzeERnbm1QV01pVjZPSmt
+    Tenant-Id: 10000019\r\n
+    Origin: http://192.168.100.181:4210\r\n
+    Referer: http://192.168.100.181:4210/web/isms/hazard-management/hazard-ledger\r\n
+    Accept-Encoding: gzip, deflate\r\n
+    Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6\r\n
+    \r\n
+    [Response in frame: 10079]
+    [Full request URI: http://192.168.100.181:4210/safety/api/isms/v2/menuNavigation/navigationBar/get]

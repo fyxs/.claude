@@ -1,0 +1,28 @@
+reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
+
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+    CertificateRevocation    REG_DWORD    0x1
+    DisableCachingOfSSLPages    REG_DWORD    0x0
+    IE5_UA_Backup_Flag    REG_SZ    5.0
+    PrivacyAdvanced    REG_DWORD    0x1
+    SecureProtocols    REG_DWORD    0x2800
+    User Agent    REG_SZ    Mozilla/4.0 (compatible; MSIE 8.0; Win32)
+    ZonesSecurityUpgrade    REG_BINARY    0B5C150A487EDC01
+    WarnonZoneCrossing    REG_DWORD    0x0
+    EnableNegotiate    REG_DWORD    0x1
+    ProxyEnable    REG_DWORD    0x0
+    MigrateProxy    REG_DWORD    0x1
+    LockDatabase    REG_QWORD    0x1dc7859dc2f736b
+    ProxyOverride    REG_SZ    localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*;<local>
+    ProxyServer    REG_SZ    /f
+
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\5.0
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Cache
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Http Filters
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\P3P
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Passport
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Wpad
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones
